@@ -221,7 +221,7 @@ kernel.img: Image
 	@echo '  Image:  kernel.img is ready'
 
 ifeq ($(CONFIG_VENDOR_FRIENDLYELEC),y)
-DTBS := rk3*-nanopi*-rev*.dtb
+DTBS := rk3568-vitobox.dtb
 
 nanopi4-images: dtbs kernel.img $(LOGO) $(LOGO_KERNEL)
 	$(Q)$(srctree)/scripts/mkimg --dtb $(DTBS) --keep-dtb-name
