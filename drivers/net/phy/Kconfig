@@ -376,3 +376,8 @@ endif # PHYLIB
 config MICREL_KS8995MA
 	tristate "Micrel KS8995MA 5-ports 10/100 managed Ethernet switch"
 	depends on SPI
+
+config MAXLINEAR_8611X_PHY
+	tristate "MaxLinear MXL86110 and MXL86111 PHYs"
+	help
+	  Supports the MXL86110 and MXL86111 PHYs.
