@@ -28,27 +28,6 @@
 		};
 	};
 
-	bt_sco: bt-sco {
-		status = "disabled";
-		compatible = "delta,dfbmcs320";
-		#sound-dai-cells = <1>;
-	};
-
-	bt_sound: bt-sound {
-		status = "disabled";
-		compatible = "simple-audio-card";
-		simple-audio-card,format = "dsp_a";
-		simple-audio-card,bitclock-inversion = <0>;
-		simple-audio-card,mclk-fs = <256>;
-		simple-audio-card,name = "rockchip,bt";
-		simple-audio-card,cpu {
-			sound-dai = <&i2s3_2ch>;
-		};
-		simple-audio-card,codec {
-			sound-dai = <&bt_sco 1>;
-		};
-	};
-
 	dc_12v: dc-12v {
 		compatible = "regulator-fixed";
 		regulator-name = "dc_12v";
@@ -70,14 +49,6 @@
 		};
 		simple-audio-card,codec {
 				sound-dai = <&hdmi>;
-		};
-	};
-
-	leds: leds {
-		compatible = "gpio-leds";
-		work_led: work {
-			gpios = <&gpio0 RK_PC0 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "heartbeat";
 		};
 	};
 
@@ -285,9 +256,9 @@
 &i2c0 {
 	status = "okay";
 
-	vdd_cpu: tcs4525@1c {
-		compatible = "tcs,tcs4525";
-		reg = <0x1c>;
+	vdd_cpu: tcs4525@60 {
+		compatible = "fcs,fan53555";
+		reg = <0x60>;
 		vin-supply = <&vcc5v0_sys>;
 		regulator-compatible = "fan53555-reg";
 		regulator-name = "vdd_cpu";
@@ -757,23 +728,22 @@
 	status = "okay";
 };
 
+
 &u2phy0_host {
 	phy-supply = <&vcc5v0_host>;
 	status = "okay";
 };
 
 &u2phy0_otg {
-	vbus-supply = <&vcc5v0_otg>;
 	status = "okay";
 };
 
 &u2phy1_host {
-	phy-supply = <&vcc5v0_host>;
+	phy-supply = <&vcc5v0_otg>;
 	status = "okay";
 };
 
 &u2phy1_otg {
-	phy-supply = <&vcc5v0_host>;
 	status = "okay";
 };
 
@@ -803,6 +773,7 @@
 
 &usbdrd_dwc3 {
 	dr_mode = "host";
+	extcon = <&usb2phy0>;
 	status = "okay";
 };
 
