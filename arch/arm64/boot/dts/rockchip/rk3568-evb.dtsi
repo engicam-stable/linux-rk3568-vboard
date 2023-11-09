@@ -74,33 +74,6 @@
 		pinctrl-0 = <&hp_det>;
 	};
 
-	spdif-sound {
-		status = "okay";
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "ROCKCHIP,SPDIF";
-		simple-audio-card,mclk-fs = <128>;
-		simple-audio-card,cpu {
-				sound-dai = <&spdif_8ch>;
-		};
-		simple-audio-card,codec {
-				sound-dai = <&spdif_out>;
-		};
-	};
-
-	spdif_out: spdif-out {
-			status = "okay";
-			compatible = "linux,spdif-dit";
-			#sound-dai-cells = <0>;
-	};
-
-	vad_sound: vad-sound {
-		status = "disabled";
-		compatible = "rockchip,multicodecs-card";
-		rockchip,card-name = "rockchip,rk3568-vad";
-		rockchip,cpu = <&i2s1_8ch>;
-		rockchip,codec = <&rk809_codec>, <&vad>;
-	};
-
 	vcc3v3_sys: vcc3v3-sys {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc3v3_sys";
@@ -521,10 +494,6 @@
 	};
 };
 
-&i2s0_8ch {
-	status = "okay";
-};
-
 &i2s1_8ch {
 	status = "okay";
 	rockchip,clk-trcm = <1>;
@@ -533,12 +502,6 @@
 		     &i2s1m0_lrcktx
 		     &i2s1m0_sdi0
 		     &i2s1m0_sdo0>;
-};
-
-&i2s3_2ch {
-	pinctrl-0 = <&i2s3m0_sclk &i2s3m0_lrck &i2s3m0_sdi &i2s3m0_sdo>;
-	rockchip,bclk-fs = <32>;
-	status = "disabled";
 };
 
 &iep {
@@ -690,11 +653,6 @@
 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
 	status = "okay";
 };
-
-&spdif_8ch {
-	status = "okay";
-};
-
 
 &u2phy0_host {
 	phy-supply = <&vcc5v0_host>;
