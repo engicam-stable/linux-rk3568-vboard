@@ -603,9 +603,9 @@
 		gmac0_tx_bus2: gmac0-tx-bus2 {
 			rockchip,pins =
 				/* gmac0_txd0 */
-				<2 RK_PB3 1 &pcfg_pull_none_drv_level_2>,
+				<2 RK_PB3 1 &pcfg_pull_none_drv_level_3>,
 				/* gmac0_txd1 */
-				<2 RK_PB4 1 &pcfg_pull_none_drv_level_2>,
+				<2 RK_PB4 1 &pcfg_pull_none_drv_level_3>,
 				/* gmac0_txen */
 				<2 RK_PB5 1 &pcfg_pull_none>;
 		};
@@ -616,7 +616,7 @@
 				/* gmac0_rxclk */
 				<2 RK_PA5 2 &pcfg_pull_none>,
 				/* gmac0_txclk */
-				<2 RK_PB0 2 &pcfg_pull_none_drv_level_1>;
+				<2 RK_PB0 2 &pcfg_pull_none_drv_level_3>;
 		};
 
 		/omit-if-no-ref/
@@ -627,9 +627,9 @@
 				/* gmac0_rxd3 */
 				<2 RK_PA4 2 &pcfg_pull_none>,
 				/* gmac0_txd2 */
-				<2 RK_PA6 2 &pcfg_pull_none_drv_level_2>,
+				<2 RK_PA6 2 &pcfg_pull_none_drv_level_3>,
 				/* gmac0_txd3 */
-				<2 RK_PA7 2 &pcfg_pull_none_drv_level_2>;
+				<2 RK_PA7 2 &pcfg_pull_none_drv_level_3>;
 		};
 	};
 

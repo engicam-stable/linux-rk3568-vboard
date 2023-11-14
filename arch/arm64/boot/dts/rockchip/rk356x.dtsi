@@ -455,13 +455,6 @@
 		#clock-cells = <0>;
 	};
 
-	gmac1_xpcsclk: xpcs-gmac1-clock {
-		compatible = "fixed-clock";
-		clock-frequency = <125000000>;
-		clock-output-names = "clk_gmac1_xpcs_mii";
-		#clock-cells = <0>;
-	};
-
 	i2s1_mclkin_rx: i2s1-mclkin-rx {
 		compatible = "fixed-clock";
 		#clock-cells = <0>;
