@@ -65,7 +65,7 @@
 		status = "okay";
 		compatible = "rockchip,multicodecs-card";
 		rockchip,card-name = "rockchip-rk809";
-		hp-det-gpio = <&gpio3 RK_PA1 GPIO_ACTIVE_LOW>;
+		hp-det-gpio = <&gpio3 RK_PC3 GPIO_ACTIVE_LOW>;
 		rockchip,format = "i2s";
 		rockchip,mclk-fs = <256>;
 		rockchip,cpu = <&i2s1_8ch>;
@@ -127,41 +127,6 @@
 		pinctrl-0 = <&vcc5v0_otg_en>;
 	};
 
-	vcc3v3_lcd0_n: vcc3v3-lcd0-n {
-		compatible = "regulator-fixed";
-		regulator-name = "vcc3v3_lcd0_n";
-		regulator-boot-on;
-		regulator-state-mem {
-			regulator-off-in-suspend;
-		};
-	};
-
-	vcc3v3_lcd1_n: vcc3v3-lcd1-n {
-		compatible = "regulator-fixed";
-		regulator-name = "vcc3v3_lcd1_n";
-		regulator-boot-on;
-		regulator-state-mem {
-			regulator-off-in-suspend;
-		};
-	};
-
-	sdio_pwrseq: sdio-pwrseq {
-		compatible = "mmc-pwrseq-simple";
-		clocks = <&rk809 1>;
-		clock-names = "ext_clock";
-		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_enable_h>;
-
-		/*
-		 * On the module itself this is one of these (depending
-		 * on the actual card populated):
-		 * - SDIO_RESET_L_WL_REG_ON
-		 * - PDN (power down when low)
-		 */
-		post-power-on-delay-ms = <200>;
-		reset-gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_LOW>;
-	};
-
 	test-power {
 		status = "okay";
 	};
@@ -211,7 +176,7 @@
 &i2c0 {
 	status = "okay";
 
-	vdd_cpu: tcs4525@60 {
+	vdd_cpu: tcs4525@60 {  //FIX gestione PMIC_SLEEP_H
 		compatible = "fcs,fan53555";
 		reg = <0x60>;
 		vin-supply = <&vcc5v0_sys>;
@@ -252,10 +217,10 @@
 		/* not save the PMIC_POWER_EN register in uboot */
 		not-save-power-en = <1>;
 
-		vcc1-supply = <&vcc3v3_sys>;
-		vcc2-supply = <&vcc3v3_sys>;
-		vcc3-supply = <&vcc3v3_sys>;
-		vcc4-supply = <&vcc3v3_sys>;
+		vcc1-supply = <&vcc5v0_sys>;
+		vcc2-supply = <&vcc5v0_sys>;
+		vcc3-supply = <&vcc5v0_sys>;
+		vcc4-supply = <&vcc5v0_sys>;
 		vcc5-supply = <&vcc3v3_sys>;
 		vcc6-supply = <&vcc3v3_sys>;
 		vcc7-supply = <&vcc3v3_sys>;
@@ -527,7 +492,7 @@
 &pinctrl {
 	headphone {
 		hp_det: hp-det {
-			rockchip,pins = <3 RK_PA1 RK_FUNC_GPIO &pcfg_pull_down>;
+			rockchip,pins = <3 RK_PC3 RK_FUNC_GPIO &pcfg_pull_down>;
 		};
 	};
 
@@ -553,11 +518,6 @@
 		};
 	};
 
-	sdio-pwrseq {
-		wifi_enable_h: wifi-enable-h {
-			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
-		};
-	};
 
 	usb {
 		vcc5v0_host_en: vcc5v0-host-en {
@@ -660,7 +620,7 @@
 };
 
 &u2phy0_otg {
-	status = "okay";
+	status = "disabled";
 };
 
 &u2phy1_host {
@@ -669,7 +629,7 @@
 };
 
 &u2phy1_otg {
-	status = "okay";
+	status = "disabled";
 };
 
 &usb2phy0 {
