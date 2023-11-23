@@ -12,37 +12,6 @@
 #include <dt-bindings/sensor-dev.h>
 
 / {
-	audiopwmout_diff: audiopwmout-diff {
-		status = "disabled";
-		compatible = "simple-audio-card";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,name = "rockchip,audiopwmout-diff";
-		simple-audio-card,mclk-fs = <256>;
-		simple-audio-card,bitclock-master = <&master>;
-		simple-audio-card,frame-master = <&master>;
-		simple-audio-card,cpu {
-			sound-dai = <&i2s3_2ch>;
-		};
-		master: simple-audio-card,codec {
-			sound-dai = <&dig_acodec>;
-		};
-	};
-
-	hdmi_sound: hdmi-sound {
-		compatible = "simple-audio-card";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,mclk-fs = <128>;
-		simple-audio-card,name = "rockchip,hdmi";
-		status = "disabled";
-
-		simple-audio-card,cpu {
-				sound-dai = <&i2s0_8ch>;
-		};
-		simple-audio-card,codec {
-				sound-dai = <&hdmi>;
-		};
-	};
-
 	pdmics: dummy-codec {
 		status = "disabled";
 		compatible = "rockchip,dummy-codec";
@@ -137,12 +106,11 @@
 };
 
 &dfi {
-	status = "okay";
+	status = "disabled";
 };
 
 &dmc {
-	center-supply = <&vdd_logic>;
-	status = "okay";
+	status = "disabled";
 };
 
 &gpu {
@@ -170,7 +138,7 @@
 };
 
 &hdmi_sound {
-	status = "okay";
+	status = "disabled";
 };
 
 &i2c0 {
@@ -561,21 +529,33 @@
 	status = "okay";
 };
 
+
 &rkvdec {
-	status = "okay";
+        rockchip,disable-auto-freq;
+        assigned-clock-rates = <396000000>, <396000000>, <396000000>, <600000000>;
+        status = "okay";
 };
 
 &rkvdec_mmu {
-	status = "okay";
+        status = "okay";
 };
 
 &rkvenc {
-	venc-supply = <&vdd_logic>;
-	status = "okay";
+        venc-supply = <&vdd_logic>;
+        status = "okay";
 };
 
 &rkvenc_mmu {
-	status = "okay";
+        status = "okay";
+};
+
+&rknpu {
+        rknpu-supply = <&vdd_npu>;
+        status = "okay";
+};
+
+&rknpu_mmu {
+        status = "okay";
 };
 
 &route_hdmi {
@@ -593,7 +573,6 @@
 	no-sdio;
 	no-sd;
 	non-removable;
-	max-frequency = <200000000>;
 	full-pwr-cycle-in-suspend;
 	status = "okay";
 };
@@ -701,8 +680,10 @@
 	status = "okay";
 	assigned-clocks = <&cru DCLK_VOP0>, <&cru DCLK_VOP1>;
 	assigned-clock-parents = <&pmucru PLL_HPLL>, <&cru PLL_VPLL>;
+	support-multi-area;
 };
 
 &vop_mmu {
 	status = "okay";
 };
+
