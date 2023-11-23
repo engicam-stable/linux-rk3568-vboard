@@ -6,10 +6,8 @@
 
 / {
 	aliases {
-		mmc1 = &sdhci;
-		mmc0 = &sdmmc0;
-		mmc2 = &sdmmc1;
-		mmc3 = &sdmmc2;
+		mmc2 = &sdhci; //eMMC
+		mmc0 = &sdmmc0; //SDCard
 	};
 
 	chosen: chosen {
