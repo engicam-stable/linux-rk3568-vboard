@@ -56,3 +56,8 @@
 &sata2 {
 	status = "disabled";
 };
+
+&tsadc {
+        status = "okay";
+};
+
