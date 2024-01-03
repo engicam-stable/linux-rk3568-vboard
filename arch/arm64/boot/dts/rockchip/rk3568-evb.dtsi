@@ -159,7 +159,7 @@
 		regulator-initial-state = <3>;
 			regulator-state-mem {
 			regulator-off-in-suspend;
-		};		
+		};
 	};
 
 	rk809: pmic@20 {
@@ -574,6 +574,9 @@
 	no-sd;
 	non-removable;
 	full-pwr-cycle-in-suspend;
+	cap-mmc-hw-reset;
+	pinctrl-names = "default";
+	pinctrl-0 = <&emmc_rstnout &emmc_bus8 &emmc_clk &emmc_cmd>;
 	status = "okay";
 };
 
